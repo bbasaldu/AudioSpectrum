@@ -525,7 +525,7 @@ var playBtn = btnGroup.append('circle')
     .on('click', function() {
         btnClick(d3.select(this))
         if(typeof audio == 'undefined'){
-            //const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
             const audioCtx = new AudioContext() 
             //const gainNode = audioCtx.createGain()
             //gainNode.gain.value = 1.5
