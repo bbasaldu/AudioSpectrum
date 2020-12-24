@@ -19,14 +19,28 @@ let dataArray;
 var width = 1000;
 var height = 650;
 var div = d3.select('body').append('div')
+        .style('position', 'relative')
+        .style('height', '0')
+        //.style('width', '50%')
+        //.style('margin', 'auto')
+        .style('padding-bottom', '56.25%')
 var svg = div.append('svg')
-    .attr('transform', `translate(0, 50)`)
-    .attr('width', width)
-    .attr('height', height)
-    .style('display', 'block')
-    .style('margin', 'auto')
-
-
+    .style('position', 'absolute')
+    //.attr('transform', 'scale()')
+    //.attr('transform', `translate(0, 50)`)
+    .style('top', 0)
+    .style('left', 0)
+    .style('width', '100%')
+    .style('height', '100%')
+    //.attr('width', width)
+    //.attr('height', height)
+    //.style('display', 'block')
+    //.style('margin', 'auto')
+function reportWindowSize() {
+  console.log(window.innerHeight)
+  console.log(window.innerWidth)
+}
+window.onresize = reportWindowSize;
 var bins = 256;
 var data = []
 for(var i=0; i<bins; i++) data.push({value: 1, stat: 'group'+i, arc: null})
@@ -511,8 +525,9 @@ var playBtn = btnGroup.append('circle')
     .on('click', function() {
         btnClick(d3.select(this))
         if(typeof audio == 'undefined'){
-            const audioCtx = new AudioContext()
-            const gainNode = audioCtx.createGain()
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const audioCtx = new AudioContext() 
+            //const gainNode = audioCtx.createGain()
             //gainNode.gain.value = 1.5
             analyser = audioCtx.createAnalyser();
             //minimum 32
