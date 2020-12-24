@@ -4,7 +4,7 @@
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API
 
 //no copyright
-const song = "TrapTitans_Pinnacle.mp3";
+const song = "/TrapTitans_Pinnacle.mp3";
 const pow = 3;
 const radialMargin = 25;
 const maxHz = 44100/2; //We can only get data on half the sample rate, max hz our data gives us
