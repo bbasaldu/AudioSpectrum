@@ -9,46 +9,51 @@ const pow = 3;
 const radialMargin = 25;
 const maxHz = 44100/2; //We can only get data on half the sample rate, max hz our data gives us
 const maxHumanHz = 20000; //upper limit of human hearing
-
-
+const margin = 0;
+const dim = {w: window.innerWidth-margin, h: window.innerHeight-margin};
+//console.log(dim)
 let analyser;
 let bufferLength;
 let audio;
 let dataArray;
 
-var width = 1000;
-var height = 650;
-var div = d3.select('body').append('div')
-//        .style('position', 'relative')
-//        .style('height', '0')
-        //.style('width', '50%')
-        //.style('margin', 'auto')
-        //.style('padding-bottom', '56.25%')
+var width = 1000;//dim.w;//1000
+var height = 650;//dim.h;//650
+
+if(dim.w <= 600) height = height * 2;
+d3.select('#name').attr('class', 'h4')
+var div = d3.select('body')
+    .style('position', 'relative')
+    .append('div')
+    .style('position', 'relative')
 var svg = div.append('svg')
-    //.style('position', 'absolute')
-    //.attr('transform', 'scale()')
-    .attr('transform', `translate(0, 50)`)
-//    .style('top', 0)
-//    .style('left', 0)
-//    .style('width', '100%')
-//    .style('height', '100%')
+    .style('position', 'relative')
+    //.attr("preserveAspectRatio", "xMinYMin meet")
+    //.attr('viewBox', `0 0 ${width} ${height}`)
     .attr('width', width)
     .attr('height', height)
-    .style('display', 'block')
-    .style('margin', 'auto')
-function reportWindowSize() {
-  console.log(window.innerHeight)
-  console.log(window.innerWidth)
+    //.style('display', 'block')
+    //.style('margin', 'auto')
+    .on('load', () => resize(dim.w/2, dim.h/2))
+
+
+function resize(w,h){
+    
+    var bbox = svg.node().getBoundingClientRect();
+    var x = w - (bbox.width/2)
+    var y = h - (bbox.height/2);
+    svg.attr('transform', `translate(${x}, ${y})`)
 }
-window.onresize = reportWindowSize;
+
+window.onresize = function (){resize(window.innerWidth/2, window.innerHeight/2)}
 var bins = 256;
 var data = []
 for(var i=0; i<bins; i++) data.push({value: 1, stat: 'group'+i, arc: null})
 
 //largest unsigned 8bit int
 var maxValue = 255;
-
-var outerRadius = Math.min(width, height)/2 - radialMargin;
+var dimScale = 1.0;
+var outerRadius = Math.min(width*dimScale, height*dimScale)/2 - radialMargin;
 var innerRadius = outerRadius/1.5
 
 var xScale = d3.scaleBand().range([0, 2 * Math.PI]).domain(data.map(d => d.stat));
@@ -516,6 +521,7 @@ function btnClick(btn){
 }
 
 var btnGroup = svg.append('g')
+
 var playBtn = btnGroup.append('circle')
     .attr('id', 'playBtn')
     .attr('cx', midx)
