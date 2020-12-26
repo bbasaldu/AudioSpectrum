@@ -28,6 +28,9 @@ window.mobileCheck = function() {
 if(window.mobileCheck()){
     height = height * 2;
 }
+else {
+    window.onresize = function (){resize(window.innerWidth/2, window.innerHeight/2)};
+}
 d3.select('#name').attr('class', 'h4')
 var div = d3.select('body')
     .style('position', 'relative')
@@ -56,7 +59,7 @@ function resize(w,h){
     //svg.attr('transform', `translate(${x}, ${y})`)
 }
 
-window.onresize = function (){resize(window.innerWidth/2, window.innerHeight/2)}
+
 var bins = 256;
 var data = []
 for(var i=0; i<bins; i++) data.push({value: 1, stat: 'group'+i, arc: null})
