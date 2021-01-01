@@ -582,46 +582,13 @@ var playBtn = btnGroup.append('circle')
     .attr('stroke', '#fff')
     .on('click', function() {
         btnClick(d3.select(this))
-//        if(audioCtx == null){
-//            //initAudioCtx();
-//            //loadSong(defaultSong);
-//            requestAnimationFrame(tick)
-//            //audio.play();
-//        }
+        if(audioCtx.state === 'suspended') audioCtx.resume()
         if(song == null){
             song = defaultSong;
             loadSong(song)
         }
         play();
-        
-        
-//        if(typeof audio == 'undefined'){
-//            const AudioContext = window.AudioContext || window.webkitAudioContext;
-//            const audioCtx = new AudioContext() 
-//            //const gainNode = audioCtx.createGain()
-//            //gainNode.gain.value = 1.5
-//            analyser = audioCtx.createAnalyser();
-//            //minimum 32
-//            analyser.fftSize = bins * 2;//2048;
-//            analyser.smooothingTimeConstant = 0;
-//            bufferLength = analyser.frequencyBinCount;
-//            dataArray = new Uint8Array(bufferLength);
-//            //analyser.getByteFrequencyData(dataArray);
-//
-//
-//            audio = new Audio(defaultSong)
-//            const source = audioCtx.createMediaElementSource(audio)
-//            //source.connect(gainNode)
-//            //gainNode.connect(analyser)
-//            source.connect(analyser)
-//            analyser.connect(audioCtx.destination)
-//            //console.log(dataArray)
-//            //console.log(audioCtx.sampleRate)
-//            audio.play()
-//            //console.log('here')
-//            requestAnimationFrame(tick)   
-//        }
-//        else play();
+
     })
 
 var playBtnText = btnGroup.append('text')
